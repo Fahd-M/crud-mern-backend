@@ -24,10 +24,6 @@ const postSchema = mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
-app.get("/", (req, res) => {
-  res.send("Express is here");
-});
-
 app.post("/create", (req, res) => {
   Post.create({
     title: req.body.title,
@@ -72,6 +68,14 @@ app.put("/update/:id", (req, res) => {
     .then((doc) => console.log(doc))
     .catch((err) => console.log(err));
 });
+
+//if in production environment we want express to use static client files and send main index.html file
+// if (process.env.NODE_ENV === 'production'){
+//   app.use(express.static("client/build"));
+//   app.get("*", (req,res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// };
 
 app.listen(process.env.PORT || 3001, function () {
   console.log(`Server is running`);
