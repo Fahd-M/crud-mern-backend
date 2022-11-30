@@ -1,3 +1,5 @@
+require('dotenv').config();
+const path = require('path');
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -10,7 +12,7 @@ app.use(cors());
 
 
 mongoose
-  .connect("mongodb://localhost:27017/myDB")
+  .connect(process.env.MONGO_URI)
   .catch((err) => console.log(err));
 
 //DB Schema and Model
@@ -71,6 +73,6 @@ app.put("/update/:id", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.listen(3001, function () {
-  console.log("Server is running at Port 3001");
+app.listen(process.env.PORT || 3001, function () {
+  console.log(`Server is running`);
 });
